@@ -170,3 +170,7 @@ install.sh         установка на Pi одной командой
 | GET/POST | `/api/settings` | чтение `$$` / запись `{"values":{"120":"50"}}` |
 | GET/POST | `/api/files` | список / загрузка (multipart) |
 | GET/DELETE | `/api/files/{имя}` | содержимое / удаление |
+
+## Лицензия
+
+MIT — см. [LICENSE](LICENSE).
