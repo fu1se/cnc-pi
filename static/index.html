@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#eef1f5">
+<title>ЧПУ · пульт</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<!-- ═══════════ набор иконок ═══════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="8"/><path d="M12 3v18M3 12h18"/></symbol>
+  <symbol id="i-unlock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 10 12 3l9 7"/><path d="M5 9v11h14V9"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24">
+    <rect x="7" y="5" width="3.4" height="14" rx="1.2" fill="currentColor"/>
+    <rect x="13.6" y="5" width="3.4" height="14" rx="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 5v14l12-7z" fill="currentColor"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></symbol>
+  <symbol id="i-power" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 4v8"/><path d="M7.5 7a7 7 0 1 0 9 0"/></symbol>
+  <symbol id="i-droplet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3s6 6.3 6 10.4A6 6 0 0 1 6 13.4C6 9.3 12 3 12 3z"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 9h11a2.5 2.5 0 1 0-2.5-2.5"/><path d="M4 15h14a2.5 2.5 0 1 1-2.5 2.5"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 15V4"/><path d="m7 9 5-5 5 5"/><path d="M5 20h14"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v4h-4"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h6"/><rect x="8" y="13" width="8" height="5"/></symbol>
+  <symbol id="i-zin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.5-4.5"/><path d="M10.5 8v5M8 10.5h5"/></symbol>
+  <symbol id="i-zout" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="10.5" cy="10.5" r="6.5"/><path d="m20 20-4.5-4.5"/><path d="M8 10.5h5"/></symbol>
+  <symbol id="i-fit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M16 3h3a2 2 0 0 1 2 2v3"/>
+    <path d="M21 16v3a2 2 0 0 1-2 2h-3"/><path d="M8 21H5a2 2 0 0 1-2-2v-3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 6 18 18M18 6 6 18"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3 2 20h20L12 3z"/><path d="M12 9v5M12 17.5v.5"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 7h4l2-2h6l2 2h4v13H3z"/><circle cx="12" cy="13" r="4"/></symbol>
+</svg>
+
+<!-- ═══════════ верхняя панель ═══════════ -->
+<header id="topbar">
+  <div class="brand">
+    <span class="logo"><svg class="ic"><use href="#i-logo"/></svg></span>
+    <span class="brand-name">ЧПУ&nbsp;пульт</span>
+  </div>
+  <div id="statePill" class="pill">нет связи</div>
+  <div id="portInfo" class="port muted"></div>
+  <div class="spacer"></div>
+  <div class="machine-ctl">
+    <button id="btnUnlock" class="btn ic-btn" title="Разблокировать ($X)"><svg class="ic"><use href="#i-unlock"/></svg></button>
+    <button id="btnHome" class="btn ic-btn" title="Базирование (Home $H)"><svg class="ic"><use href="#i-home"/></svg></button>
+    <span class="vsep"></span>
+    <button id="btnHold" class="btn ic-btn warn" title="Пауза подачи (Feed hold)"><svg class="ic"><use href="#i-pause"/></svg></button>
+    <button id="btnResume" class="btn ic-btn ok" title="Пуск (Cycle start)"><svg class="ic"><use href="#i-play"/></svg></button>
+    <button id="btnReset" class="btn ic-btn danger" title="СТОП — мягкий сброс (Ctrl-X)"><svg class="ic"><use href="#i-stop"/></svg></button>
+  </div>
+</header>
+
+<!-- ═══════════ баннер аварии ═══════════ -->
+<div id="alarmBar" class="alarmbar hidden">
+  <svg class="ic"><use href="#i-alert"/></svg>
+  <span id="alarmMsg">Авария — станок заблокирован</span>
+  <div class="spacer"></div>
+  <button id="btnAlarmUnlock" class="btn solid">Разблокировать ($X)</button>
+  <button id="btnAlarmHome" class="btn">Базировать ($H)</button>
+</div>
+
+<!-- ═══════════ рабочая область ═══════════ -->
+<div id="app">
+
+  <!-- ── левая колонка: управление ── -->
+  <aside id="left">
+
+    <!-- координаты (DRO) -->
+    <section class="card" id="droCard">
+      <div class="cardhead">
+        <h2>Координаты</h2>
+        <div class="seg">
+          <button class="segbtn active" data-dro="wpos">Деталь</button>
+          <button class="segbtn" data-dro="mpos">Станок</button>
+        </div>
+      </div>
+      <div class="dro">
+        <div class="axis ax-x">
+          <span class="ax">X</span><span class="val" id="droX">0.000</span>
+          <button class="zero" data-zero="X" title="Обнулить X">0</button>
+        </div>
+        <div class="axis ax-y">
+          <span class="ax">Y</span><span class="val" id="droY">0.000</span>
+          <button class="zero" data-zero="Y" title="Обнулить Y">0</button>
+        </div>
+        <div class="axis ax-z">
+          <span class="ax">Z</span><span class="val" id="droZ">0.000</span>
+          <button class="zero" data-zero="Z" title="Обнулить Z">0</button>
+        </div>
+      </div>
+      <div class="dro-actions">
+        <button class="btn tiny" data-zero="XYZ">Обнулить всё</button>
+        <button class="btn tiny" id="btnGoZero">На ноль XY</button>
+      </div>
+      <div class="dro-stats">
+        <span>Подача<b id="feedVal">0</b><i>мм/мин</i></span>
+        <span>Шпиндель<b id="spVal">0</b><i>об/мин</i></span>
+        <span>Буфер<b id="bufVal">—</b><i>план/RX</i></span>
+      </div>
+      <div id="msgLine" class="msg"></div>
+    </section>
+
+    <!-- ручное перемещение -->
+    <section class="card" id="jogCard">
+      <div class="cardhead">
+        <h2>Ручное перемещение</h2>
+        <span class="muted small kbd-hint">стрелки · PgUp/Dn · 1–6</span>
+      </div>
+      <div class="jogwrap">
+        <div class="jogpad">
+          <button data-jog="-X+Y" class="diag">↖</button>
+          <button data-jog="+Y">↑</button>
+          <button data-jog="+X+Y" class="diag">↗</button>
+          <button data-jog="-X">←</button>
+          <button class="mid" id="btnJogCancel" title="Отмена джога (стоп)">◼</button>
+          <button data-jog="+X">→</button>
+          <button data-jog="-X-Y" class="diag">↙</button>
+          <button data-jog="-Y">↓</button>
+          <button data-jog="+X-Y" class="diag">↘</button>
+        </div>
+        <div class="jogz">
+          <button data-jog="+Z">Z+</button>
+          <span class="jogz-lbl">Z</span>
+          <button data-jog="-Z">Z−</button>
+        </div>
+      </div>
+      <div class="steps-row">
+        <span class="steps-lbl">Шаг</span>
+        <div class="steps" id="steps"></div>
+      </div>
+      <label class="feedrow">
+        <span>Подача джога</span>
+        <input type="range" id="jogFeed" min="50" max="3000" step="50" value="1000">
+        <output id="jogFeedOut">1000</output>
+      </label>
+    </section>
+
+    <!-- оверрайды -->
+    <section class="card" id="ovCard">
+      <div class="cardhead"><h2>Оверрайды</h2></div>
+      <div class="ov-row">
+        <span class="ov-name">Подача</span>
+        <span class="ov-val" id="ovFeed">100%</span>
+        <div class="ov-btns">
+          <button class="btn tiny" data-rt="feed_m10">−10</button>
+          <button class="btn tiny" data-rt="feed_100">100</button>
+          <button class="btn tiny" data-rt="feed_p10">+10</button>
+        </div>
+      </div>
+      <div class="ov-row">
+        <span class="ov-name">Быстрый ход</span>
+        <span class="ov-val" id="ovRapid">100%</span>
+        <div class="ov-btns">
+          <button class="btn tiny" data-rt="rapid_25">25</button>
+          <button class="btn tiny" data-rt="rapid_50">50</button>
+          <button class="btn tiny" data-rt="rapid_100">100</button>
+        </div>
+      </div>
+      <div class="ov-row">
+        <span class="ov-name">Шпиндель</span>
+        <span class="ov-val" id="ovSpindle">100%</span>
+        <div class="ov-btns">
+          <button class="btn tiny" data-rt="spindle_m10">−10</button>
+          <button class="btn tiny" data-rt="spindle_100">100</button>
+          <button class="btn tiny" data-rt="spindle_p10">+10</button>
+        </div>
+      </div>
+      <div class="ov-toggles">
+        <button class="btn ic-btn" data-rt="spindle_stop" title="Шпиндель стоп/пуск"><svg class="ic"><use href="#i-power"/></svg></button>
+        <button class="btn ic-btn" data-rt="flood" title="Охлаждение (M8/M9)"><svg class="ic"><use href="#i-droplet"/></svg></button>
+        <button class="btn ic-btn" data-rt="mist" title="Туман (M7/M9)"><svg class="ic"><use href="#i-wind"/></svg></button>
+      </div>
+    </section>
+  </aside>
+
+  <!-- ── центр: визуализатор ── -->
+  <section id="center">
+    <div class="view-head">
+      <h2>Траектория</h2>
+      <span class="muted small" id="viewInfo">файл не выбран</span>
+      <div class="spacer"></div>
+      <div class="view-tools">
+        <button class="btn ic-btn" id="btnZoomOut" title="Отдалить"><svg class="ic"><use href="#i-zout"/></svg></button>
+        <button class="btn ic-btn" id="btnZoomIn" title="Приблизить"><svg class="ic"><use href="#i-zin"/></svg></button>
+        <button class="btn ic-btn" id="btnFit" title="Вписать в окно"><svg class="ic"><use href="#i-fit"/></svg></button>
+      </div>
+    </div>
+    <div class="canvas-wrap">
+      <canvas id="canvas"></canvas>
+      <div class="legend">
+        <span><i class="sw work"></i>рабочий ход</span>
+        <span><i class="sw rapid"></i>холостой</span>
+        <span><i class="sw tool"></i>инструмент</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── правая колонка: камера + задание + консоль ── -->
+  <aside id="right">
+
+    <!-- камера станка -->
+    <section class="card hidden" id="camCard">
+      <div class="cardhead">
+        <h2>Камера</h2>
+        <span class="cam-live hidden" id="camLive">LIVE</span>
+        <div class="spacer"></div>
+        <a class="btn ic-btn" id="btnCamSnap" href="/camera/snapshot" target="_blank" title="Снимок в новой вкладке"><svg class="ic"><use href="#i-camera"/></svg></a>
+        <button class="btn ic-btn" id="btnCamToggle" title="Пауза / воспроизведение"><svg class="ic"><use href="#i-pause"/></svg></button>
+      </div>
+      <div class="cam-wrap">
+        <img id="camImg" alt="камера станка">
+        <div class="cam-msg" id="camMsg">подключение…</div>
+      </div>
+    </section>
+
+    <!-- задание / файлы -->
+    <section class="card" id="jobCard">
+      <div class="cardhead">
+        <h2>Задание</h2>
+        <label class="btn ic-btn" for="fileInput" title="Загрузить G-код"><svg class="ic"><use href="#i-upload"/></svg></label>
+        <input type="file" id="fileInput"
+               accept=".nc,.gcode,.gc,.ngc,.tap,.txt,.cnc" multiple hidden>
+      </div>
+      <div id="drop" class="drop">Перетащите G-код сюда</div>
+      <ul id="fileList" class="files"></ul>
+      <div id="progWrap" class="progwrap hidden">
+        <div class="progtop"><b id="jobName"></b><span id="jobPct">0%</span></div>
+        <div class="bar"><div id="barFill"></div></div>
+        <div class="progstats">
+          <span id="jobLines">0 / 0</span>
+          <span id="jobTime">0:00</span>
+          <span id="jobEta"></span>
+        </div>
+        <div class="progbtns">
+          <button class="btn tiny warn" id="btnJobPause">Пауза</button>
+          <button class="btn tiny danger" id="btnJobStop">Прервать</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- консоль / настройки -->
+    <section class="card grow" id="consoleCard">
+      <div class="cardhead">
+        <div class="seg">
+          <button class="segbtn active" data-tab="console">Консоль</button>
+          <button class="segbtn" data-tab="settings">Настройки GRBL</button>
+        </div>
+        <div class="spacer"></div>
+        <label class="chk"><input type="checkbox" id="showTx" checked> отправку</label>
+      </div>
+
+      <div id="tabConsole" class="tabpane">
+        <div id="log" class="log"></div>
+        <form id="mdiForm" class="mdi">
+          <input id="mdi" placeholder="G-код или команда $ …" autocomplete="off" spellcheck="false">
+          <button class="btn ic-btn" title="Отправить"><svg class="ic"><use href="#i-send"/></svg></button>
+        </form>
+        <div class="quick">
+          <button class="btn tiny" data-cmd="$$">$$ параметры</button>
+          <button class="btn tiny" data-cmd="$#">$# смещения</button>
+          <button class="btn tiny" data-cmd="$G">$G режимы</button>
+          <button class="btn tiny" data-cmd="G21G90">мм/абс</button>
+          <button class="btn tiny" data-cmd="M3S1000">шпин. вкл</button>
+          <button class="btn tiny" data-cmd="M5">шпин. выкл</button>
+        </div>
+      </div>
+
+      <div id="tabSettings" class="tabpane hidden">
+        <div class="settings-actions">
+          <button class="btn tiny" id="btnReadSettings"><svg class="ic"><use href="#i-refresh"/></svg>Прочитать $$</button>
+          <button class="btn tiny ok" id="btnWriteSettings"><svg class="ic"><use href="#i-save"/></svg>Записать</button>
+        </div>
+        <div class="settings-scroll">
+          <table id="settingsTable" class="settings"></table>
+        </div>
+      </div>
+    </section>
+  </aside>
+
+</div>
+
+<div id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

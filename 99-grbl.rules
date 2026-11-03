@@ -1,0 +1,3 @@
+# Постоянное имя /dev/cnc для платы станка (замените idVendor/idProduct
+# на вывод `lsusb`; CH340 = 1a86:7523, CP2102 = 10c4:ea60, FTDI = 0403:6001)
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="cnc", GROUP="dialout", MODE="0660"

@@ -1,0 +1,22 @@
+[Unit]
+Description=cncd — веб-пульт ЧПУ (GRBL)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Group=dialout
+WorkingDirectory=/home/pi/cnc-pi
+Environment=CNC_PORT=/dev/ttyUSB0
+Environment=CNC_BAUD=115200
+Environment=CNC_HTTP_PORT=8080
+# Пароль на интерфейс (раскомментируйте и задайте свой):
+# Environment=CNC_TOKEN=смените-меня
+ExecStart=/home/pi/cnc-pi/venv/bin/python /home/pi/cnc-pi/cncd.py
+Restart=always
+RestartSec=3
+Nice=-5
+
+[Install]
+WantedBy=multi-user.target
