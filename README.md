@@ -162,6 +162,7 @@ install.sh         установка на Pi одной командой
 | метод | путь | тело / смысл |
 |---|---|---|
 | GET | `/ws` | WebSocket: состояние 5 раз/с, лог; приём `{t:"cmd"\|"rt"\|"jog"}` |
+| GET | `/api/status` | `{"s": состояние, "job": задание}` — то же, что `{t:"state"}` по WebSocket |
 | POST | `/api/command` | `{"line":"G0X10"}` — строка в очередь |
 | POST | `/api/realtime` | `{"name":"hold"}` — hold, resume, reset, jog_cancel, feed_p10… |
 | POST | `/api/jog` | `{"axes":{"X":10},"feed":1000}` |

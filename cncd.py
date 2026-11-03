@@ -723,6 +723,12 @@ def h_job(g, body, req):
 
 
 @api
+def h_status(g, body, req):
+    """Состояние без WebSocket — то же, что в сообщениях {t:"state"}: для клиентов вроде плагина Filum."""
+    return {"s": g.state, "job": g.job}
+
+
+@api
 def h_settings(g, body, req):
     if req.method == "POST":
         for k, v in (body.get("values") or {}).items():
@@ -1027,6 +1033,7 @@ def build_app(grbl, token):
     app["token"] = token
     app.router.add_get("/", h_index)
     app.router.add_get("/ws", h_ws)
+    app.router.add_get("/api/status", h_status)
     app.router.add_post("/api/command", h_command)
     app.router.add_post("/api/realtime", h_realtime)
     app.router.add_post("/api/jog", h_jog)
